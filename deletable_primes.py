@@ -1,5 +1,5 @@
 """
-Author: Damian (Twitter: @notatallshaw)
+Author: /u/zurtex (on Reddit)
 """
 
 import string
@@ -40,7 +40,7 @@ class _ArbitraryBase(int):
         cls.number = cls.calculate_number(base, digits)
         return int.__new__(cls, cls.number)
 
-    def __call__(self, *args, **kwargs):
+    def __call__(self):
         # Bring Class variables down to instance variable (hacky!)
         self.base = self.base
         self.digits = self.digits
@@ -102,7 +102,7 @@ def arbitrary_base(base, digits):
     return class_int()
 
 
-def rabin_miller(num: int):
+def miller_rabin(num: int):
     s = num - 1
     t = 0
     while s % 2 == 0:
@@ -130,7 +130,7 @@ def rabin_miller(num: int):
     return True
 
 
-def is_prime(num):
+def is_prime(num: int):
     if num in LOW_PRIMES:
         return True
     elif num < MAX_LOW_PRIMES:
@@ -140,7 +140,7 @@ def is_prime(num):
         if num % prime == 0:
             return False
 
-    return rabin_miller(num)
+    return miller_rabin(num)
 
 
 def find_deletable_primes(tree, side, base):
