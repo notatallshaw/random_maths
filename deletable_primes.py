@@ -28,6 +28,7 @@ MILLER_RABIN_OPTIMIZATION = (3_317_044_064_679_887_385_961_981,
 SIDE = LEFT
 BASE = 10
 PRINT_EACH_LEAF = True
+MEMORY_OPTIMIZATION = True  # Tree object will be pruned
 
 
 class _ArbitraryBase(int):
@@ -163,6 +164,10 @@ def find_deletable_primes(tree, side, base):
             if PRINT_EACH_LEAF:
                 print(f'Leaf: {parent}')
 
+    if MEMORY_OPTIMIZATION:
+        for parent in list(tree):
+            del tree[parent]
+
     return leaf_collection
 
 
@@ -176,7 +181,8 @@ def main():
 
     # Recursive function to find all leaf nodes of LEFT or RIGHT deletable primes
     leaves = find_deletable_primes(tree, SIDE, BASE)
-    print(f'Largest leaf: {max(leaves)}')
+    max_leaf = max(leaves)
+    print(f'Largest leaf: {max_leaf}, In Base 10: {max_leaf.number}')
 
 
 if __name__ == '__main__':
